@@ -1,29 +1,32 @@
 #include <iostream> //iostream trata entrada e saida de dados
 #include <string> //string trata manipulacao de strings
-
-using namespace std;
+#include "FBullCowGame.h" // incluido nossa headerfile
 
 
 void PrintIntro();
 void PlayGame();
-string GetGuess();
-string PrintGuess(string guess);
+std::string GetGuess();
+std::string PrintGuess(std::string guess);
 bool AskToPlayAgain();
+
+FBullCowGame BCGAME;
 
 int main() {
 
-	PrintIntro(); 
-	PlayGame();
-	AskToPlayAgain();
+	do {
+		PrintIntro();
+		PlayGame();
+	} while (AskToPlayAgain());
 	return 0;
 }
 
 void PlayGame()
 {
-	constexpr int TRIES = 5;
-	for (int i = 0; i < TRIES; i++)
+
+	int MaxTries = BCGAME.GetMaxTries(); 
+	for (int i = 0; i < MaxTries; i++)
 	{
-		string Guess = "";
+		std::string Guess = "";
 		Guess = GetGuess();
 		PrintGuess(Guess);
 	}
@@ -31,29 +34,30 @@ void PlayGame()
 
 void PrintIntro() {
 	constexpr int WORLD_LENGTH = 9;
-	cout << "Welcome to Bulls and Cows, a fun word game. \n";
-	cout << "Can you guess the " << WORLD_LENGTH << " letter isogram I`m thinking of? \n";
+	std::cout << "Welcome to Bulls and Cows, a fun word game. \n";
+	std::cout << "Can you guess the " << WORLD_LENGTH << " letter isogram I`m thinking of? \n";
 	return;
 }
 
-string GetGuess() {
-	string Guess = "";
-	cout << "Enter a guess: ";
-	getline(cin, Guess);
+std::string GetGuess() {
+	std::string Guess = "";
+	std::cout << "Try " << BCGAME.GetCurrentTry() << " ";
+	std::cout << "Enter a guess: ";
+	std::getline(std::cin, Guess);
 	return Guess;
 }
 
-string PrintGuess(string Guess) {
-	cout << "Your guess was: " << Guess << endl;
-	cout << endl;
+std::string PrintGuess(std::string Guess) {
+	std::cout << "Your guess was: " << Guess << std::endl;
+	std::cout << std::endl;
 	return Guess;
 }
 
 bool AskToPlayAgain() {
-	cout << "Do you wanna play again? ";
-	string response = "";
+	std::cout << "Do you wanna play again? (y/n)";
+	std::string response = "";
 	bool rrp;
-	getline(cin, response);
+	std::getline(std::cin, response);
 	if ((response[0] == 'y') || (response[0] == 'Y'))
 	{
 		rrp = true;
