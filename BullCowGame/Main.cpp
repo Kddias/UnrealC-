@@ -8,11 +8,13 @@ void PrintIntro();
 void PlayGame();
 string GetGuess();
 string PrintGuess(string guess);
+bool AskToPlayAgain();
 
 int main() {
 
 	PrintIntro(); 
 	PlayGame();
+	AskToPlayAgain();
 	return 0;
 }
 
@@ -45,4 +47,19 @@ string PrintGuess(string Guess) {
 	cout << "Your guess was: " << Guess << endl;
 	cout << endl;
 	return Guess;
+}
+
+bool AskToPlayAgain() {
+	cout << "Do you wanna play again? ";
+	string response = "";
+	bool rrp;
+	getline(cin, response);
+	if ((response[0] == 'y') || (response[0] == 'Y'))
+	{
+		rrp = true;
+	}
+	else {
+		rrp = false;
+	}
+	return rrp; 
 }
