@@ -4,42 +4,44 @@
 using namespace std;
 
 
-void PrintIntro(int WORD_LENGTH);
-string GetGuessAndPrintBack();
+void PrintIntro();
+void PlayGame();
+string GetGuess();
+string PrintGuess(string guess);
 
 int main() {
 
-	//Define variables
-	constexpr int WORLD_LENGTH = 9;
-	constexpr int TRIES = 5;
-	string Guess;
-	
-	//Introduce the game 
-	PrintIntro(WORLD_LENGTH);
-
-	//Get Guess from playeR //on a loop
-	for (int i = 0; i < TRIES; i++)
-	{
-	     GetGuessAndPrintBack();
-	}
-	
-	//finish application
+	PrintIntro(); 
+	PlayGame();
 	return 0;
 }
 
+void PlayGame()
+{
+	constexpr int TRIES = 5;
+	for (int i = 0; i < TRIES; i++)
+	{
+		string Guess = "";
+		Guess = GetGuess();
+		PrintGuess(Guess);
+	}
+}
 
-//functions
-
-void PrintIntro(int WORLD_LENGHT) {
+void PrintIntro() {
+	constexpr int WORLD_LENGTH = 9;
 	cout << "Welcome to Bulls and Cows, a fun word game. \n";
-	cout << "Can you guess the " << WORLD_LENGHT << " letter isogram I`m thinking of? \n";
+	cout << "Can you guess the " << WORLD_LENGTH << " letter isogram I`m thinking of? \n";
 	return;
 }
 
-string GetGuessAndPrintBack() {
+string GetGuess() {
 	string Guess = "";
 	cout << "Enter a guess: ";
 	getline(cin, Guess);
+	return Guess;
+}
+
+string PrintGuess(string Guess) {
 	cout << "Your guess was: " << Guess << endl;
 	cout << endl;
 	return Guess;
