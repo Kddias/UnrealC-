@@ -22,20 +22,29 @@ int main() {
 
 void PlayGame()
 {
+	
+	BCGAME.Reset();
 
+	//TODO change from for to While loop once we are valid
 	int MaxTries = BCGAME.GetMaxTries(); 
 	for (int i = 0; i < MaxTries; i++)
 	{
 		std::string Guess = "";
-		Guess = GetGuess();
+		Guess = GetGuess(); // TODO make loop check only validade guesses
+
+		// Submite valid guess to the game
+		// Print Number of bull and cows
 		PrintGuess(Guess);
 	}
+
+	//TODO	summarise game
+
 }
 
 void PrintIntro() {
-	constexpr int WORLD_LENGTH = 9;
+	constexpr int WORD_LENGTH = 9;
 	std::cout << "Welcome to Bulls and Cows, a fun word game. \n";
-	std::cout << "Can you guess the " << WORLD_LENGTH << " letter isogram I`m thinking of? \n";
+	std::cout << "Can you guess the " << WORD_LENGTH << " letter isogram I`m thinking of? \n";
 	return;
 }
 
