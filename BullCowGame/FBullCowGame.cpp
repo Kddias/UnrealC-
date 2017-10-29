@@ -1,8 +1,10 @@
 #include "FBullCowGame.h"
+#include <map>
+#define TMap std::map
 
 void FBullCowGame::Reset()
 {
-	constexpr int32 MAX_TRIES = 6;
+	constexpr int32 MAX_TRIES = 3;
 	constexpr int32 CURRENT_TRY = 1;
 	//the right method would be to random a word from a list.
 	const FString HIDDEN_WORD = "planet";
@@ -41,7 +43,15 @@ bool FBullCowGame::IsGameWon() const
 
 EGuessStatus FBullCowGame::CheckGuessValidaty(FString guess) const
 {
-	if (guess.length() != MyHiddenWord.length())
+	if (!IsIsogram(guess))
+	{
+		return EGuessStatus::Not_Isogram;
+	}
+	else if(!IsLowerCase(guess))
+	{
+		return EGuessStatus::Not_LowerCase;
+	}
+	else if (guess.length() != MyHiddenWord.length())
 	{
 		return EGuessStatus::Wrong_Length;
 	}
@@ -50,6 +60,46 @@ EGuessStatus FBullCowGame::CheckGuessValidaty(FString guess) const
 		return EGuessStatus::OK;
 	}
 	
+}
+
+//support function to check if the guess is really a isogram
+bool FBullCowGame::IsIsogram(FString guess) const
+{
+	if (guess.length() <= 1)
+	{
+		return true;
+	}
+
+	//declaring a map to hold if a letter from the guess word has been seen
+	TMap <char, bool> LetterSeen;
+	for (auto letter : guess) 
+	{
+		letter = tolower(letter);
+		if (LetterSeen[letter])
+		{
+			return false;
+		}
+		else
+		{
+			LetterSeen[letter] = true;
+		}
+	}
+	
+
+	return true;
+}
+
+bool FBullCowGame::IsLowerCase(FString guess) const
+{
+	for (auto letter : guess) 
+	{
+		if (!islower(letter))
+		{
+		return false;
+		}
+	}
+
+	return true;
 }
 
 
